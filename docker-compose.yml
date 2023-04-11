@@ -40,7 +40,7 @@ services:
     volumes:
       - pg-data:/var/lib/pg-data
 
-  adminer:
+  pgadmin:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
