@@ -1,3 +1,6 @@
 .env
 pgdata
 mysql-data
+pgdata
+bigstore_ms/env
+__pycache__
