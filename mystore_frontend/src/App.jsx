@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { Form, Button } from "react-bootstrap";
 import './App.css'
 import superstoreimg from './superstore.png';
+import {ListCategories} from './ListCategories';
 
 export const App = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const handleSubmit = (event) => {
     
@@ -17,7 +19,10 @@ export const App = () => {
       body: JSON.stringify({ name, description }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setCategories([...categories, data]);
+      });
 
 }
 
@@ -45,9 +50,11 @@ export const App = () => {
       </Form.Group>
 
       <Button variant="primary" type="submit">
-        Send 
+        Enviar 
       </Button>
     </Form>
+
+      <ListCategories categories={categories} setCategories={setCategories} />
        
     </div>
   )
