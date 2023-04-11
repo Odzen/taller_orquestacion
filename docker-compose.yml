@@ -1,6 +1,5 @@
 version: "3"
 
-
 services:
   mystore_frontend:
     build:
@@ -26,21 +25,25 @@ services:
       DB_NAME: ${POSTGRES_DATABASE}
       URL : ${URL}
     ports:
-      - "4000:4000"    
+      - "4000:4000"
+
   db:
     image: postgres:15.2-alpine
-    ports:
-      - 5432:5432
     environment:
       POSTGRES_ROOT_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
       POSTGRES_DATABASE: ${POSTGRES_DATABASE}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
     volumes:
-      - ../pgdata:/var/lib/postgresql/data
+      - pg-data:/var/lib/pg-data
 
   adminer:
     image: adminer:4.8.1
     restart: always
     ports:
       - "8080:8080"
+
+volumes:
+  pg-data:
