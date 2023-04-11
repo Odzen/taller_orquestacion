@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { Table} from "react-bootstrap";
 
 export const ListCategories = ({categories, setCategories}) => {
-//   const [categories, setCaregories] = useState([]);
     
     useEffect(() => {
         fetch("http://localhost:4000/categories/")
