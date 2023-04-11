@@ -17,36 +17,30 @@ services:
       dockerfile: Dockerfile
     restart: always
     depends_on:
-       - bigstoredb
+       - db
     environment:
-      DB_HOST: ${MYSQL_HOST}
-      DB_PORT: ${MYSQL_PORT}
-      DB_USER: ${MYSQL_USER}
-      DB_PASSWORD: ${MYSQL_PASSWORD}
-      DB_NAME: ${MYSQL_DATABASE}
+      DB_HOST: ${POSTGRES_HOST}
+      DB_PORT: ${POSTGRES_PORT}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DATABASE}
       URL : ${URL}
     ports:
       - "4000:4000"    
-
-
-  bigstoredb:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  db:
+    image: postgres:15.2-alpine
     ports:
-      - "3306:3306"
+      - 5432:5432
+    environment:
+      POSTGRES_ROOT_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - mysql-data:/var/lib/mysql
+      - ../pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer:4.8.1
     restart: always
     ports:
       - "8080:8080"
-
-
-volumes:
-  mysql-data:
